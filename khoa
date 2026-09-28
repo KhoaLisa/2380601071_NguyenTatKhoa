@@ -1,0 +1,888 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: 'Inter',
+        scaffoldBackgroundColor: const Color(0xFFF1F5F9),
+      ),
+      home: const ProfilePage(),
+    );
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  static const ink = Color(0xFF0F172A);
+  static const body = Color(0xFF475569);
+  static const muted = Color(0xFF64748B);
+  static const label = Color(0xFF94A3B8);
+  static const line = Color(0xFFE2E8F0);
+  static const divider = Color(0xFFF1F5F9);
+  static const canvas = Color(0xFFF8FAFC);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            width: 390,
+            height: double.infinity,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: canvas,
+              border: Border.all(color: const Color(0xFFCBD5E1), width: 3),
+              borderRadius: BorderRadius.circular(44),
+            ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(24, 44, 24, 36),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _TopBar(),
+                  SizedBox(height: 24),
+                  _ProfileHeader(),
+                  SizedBox(height: 24),
+                  _StatisticsCard(),
+                  SizedBox(height: 24),
+                  _AboutSection(),
+                  SizedBox(height: 24),
+                  _SkillsSection(),
+                  SizedBox(height: 24),
+                  _FeaturedProjects(),
+                  SizedBox(height: 24),
+                  _ContactCard(),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TopBar extends StatelessWidget {
+  const _TopBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 336,
+      height: 42,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _SmallIconButton(child: _BackGlyph()),
+          SizedBox(
+            width: 58,
+            height: 22,
+            child: _FigmaText(
+              'Profile',
+              style: TextStyle(
+                color: ProfilePage.ink,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                height: 1,
+              ),
+            ),
+          ),
+          _SmallIconButton(
+            child: Icon(Icons.share_outlined, size: 18, color: ProfilePage.ink),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SmallIconButton extends StatelessWidget {
+  const _SmallIconButton({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {},
+      child: Container(
+        width: 20,
+        height: 42,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: ProfilePage.line),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: child,
+      ),
+    );
+  }
+}
+
+class _BackGlyph extends StatelessWidget {
+  const _BackGlyph();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 18,
+      height: 18,
+      child: CustomPaint(painter: _BackGlyphPainter()),
+    );
+  }
+}
+
+class _BackGlyphPainter extends CustomPainter {
+  const _BackGlyphPainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = const Color(0xFF1E293B)
+      ..strokeWidth = 1.88
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..style = PaintingStyle.stroke;
+    final center = Offset(size.width / 2, size.height / 2);
+    final path = Path()
+      ..moveTo(center.dx + 2.25, center.dy - 4.5)
+      ..lineTo(center.dx - 2.25, center.dy)
+      ..lineTo(center.dx + 2.25, center.dy + 4.5);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class _ProfileHeader extends StatelessWidget {
+  const _ProfileHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 336,
+      height: 241,
+      child: Column(
+        children: [
+          _Avatar(),
+          SizedBox(height: 8),
+          SizedBox(
+            width: 132,
+            height: 29,
+            child: _FigmaText(
+              'Alex Rivers',
+              style: TextStyle(
+                color: ProfilePage.ink,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+                height: 1,
+              ),
+            ),
+          ),
+          SizedBox(height: 8),
+          SizedBox(
+            width: 155,
+            height: 18,
+            child: _FigmaText(
+              'Lead Mobile Engineer',
+              style: TextStyle(
+                color: ProfilePage.muted,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                height: 1,
+              ),
+            ),
+          ),
+          SizedBox(height: 8),
+          _LocationPill(),
+        ],
+      ),
+    );
+  }
+}
+
+class _Avatar extends StatelessWidget {
+  const _Avatar();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 140,
+      height: 140,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            width: 140,
+            height: 140,
+            padding: const EdgeInsets.all(4),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFFFB087),
+                  Color(0xFFFF8080),
+                  Color(0xFFFFCF70),
+                ],
+              ),
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: ClipOval(
+                child: Image.asset('images/Lisa.png', fit: BoxFit.cover),
+              ),
+            ),
+          ),
+          const Positioned(left: 104, top: 104, child: _VerifiedBadge()),
+        ],
+      ),
+    );
+  }
+}
+
+class _VerifiedBadge extends StatelessWidget {
+  const _VerifiedBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 12,
+      height: 28,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: const Color(0xFF0284C7),
+        border: Border.all(color: Colors.white, width: 1.5),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: const SizedBox(
+        width: 12,
+        height: 12,
+        child: CustomPaint(painter: _CheckPainter()),
+      ),
+    );
+  }
+}
+
+class _CheckPainter extends CustomPainter {
+  const _CheckPainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.white
+      ..strokeWidth = 1.75
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..style = PaintingStyle.stroke;
+    final path = Path()
+      ..moveTo(2, 6)
+      ..lineTo(4.75, 8.75)
+      ..lineTo(10, 3.25);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class _LocationPill extends StatelessWidget {
+  const _LocationPill();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 134,
+      height: 30,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      decoration: BoxDecoration(
+        color: ProfilePage.divider,
+        border: Border.all(color: ProfilePage.line),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const Row(
+        children: [
+          Icon(Icons.location_on_outlined, size: 14, color: ProfilePage.body),
+          SizedBox(width: 6),
+          SizedBox(
+            width: 84,
+            height: 16,
+            child: _FigmaText(
+              'Tokyo, Japan',
+              style: TextStyle(
+                color: ProfilePage.body,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                height: 1,
+              ),
+              alignment: Alignment.centerLeft,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StatisticsCard extends StatelessWidget {
+  const _StatisticsCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 336,
+      height: 78,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 17.5),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0D0F1729),
+            blurRadius: 18,
+            offset: Offset(0, 8),
+          ),
+        ],
+      ),
+      foregroundDecoration: BoxDecoration(
+        border: Border.all(color: ProfilePage.divider),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const Row(
+        children: [
+          Expanded(
+            child: _Statistic(value: '148', label: 'Projects'),
+          ),
+          _StatsDivider(),
+          Expanded(
+            child: _Statistic(value: '9 Yrs', label: 'Experience'),
+          ),
+          _StatsDivider(),
+          Expanded(
+            child: _Statistic(
+              value: '4.9 \u2605',
+              label: 'Rating',
+              valueColor: Color(0xFFEAB308),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Statistic extends StatelessWidget {
+  const _Statistic({
+    required this.value,
+    required this.label,
+    this.valueColor = ProfilePage.ink,
+  });
+  final String value;
+  final String label;
+  final Color valueColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 43,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 24,
+            child: _FigmaText(
+              value,
+              style: TextStyle(
+                color: valueColor,
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                height: 1,
+              ),
+            ),
+          ),
+          const SizedBox(height: 4),
+          SizedBox(
+            height: 15,
+            child: _FigmaText(
+              label,
+              style: TextStyle(
+                color: ProfilePage.label,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                height: 1,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StatsDivider extends StatelessWidget {
+  const _StatsDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(width: 1, height: 43, color: ProfilePage.line);
+  }
+}
+
+class _SectionHeading extends StatelessWidget {
+  const _SectionHeading(this.text);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 21,
+      child: Text(
+        text,
+        maxLines: 1,
+        style: const TextStyle(
+          color: ProfilePage.ink,
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+          height: 1,
+        ),
+      ),
+    );
+  }
+}
+
+class _AboutSection extends StatelessWidget {
+  const _AboutSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 336,
+      height: 113,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _SectionHeading('About Me'),
+          SizedBox(height: 8),
+          SizedBox(
+            width: 336,
+            height: 84,
+            child: Text(
+              'Passionate Lead Mobile Engineer specialized in\n'
+              'Flutter, Dart, and building high-performance\n'
+              'cross-platform applications. Focused on elegant\n'
+              'architecture, intuitive UX, and design systems.',
+              maxLines: 4,
+              style: TextStyle(
+                color: ProfilePage.body,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                height: 1.5,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SkillsSection extends StatelessWidget {
+  const _SkillsSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 336,
+      height: 105,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _SectionHeading('Skills & Expertise'),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              _SkillChip(
+                width: 90,
+                icon: Icons.flutter_dash,
+                label: 'Flutter',
+                foreground: Color(0xFF0369A1),
+                background: Color(0xFFE0F2FE),
+              ),
+              SizedBox(width: 10),
+              _SkillChip(
+                width: 76,
+                icon: Icons.code,
+                label: 'Dart',
+                foreground: Color(0xFF15803D),
+                background: Color(0xFFDCFCE7),
+              ),
+              SizedBox(width: 10),
+              _SkillChip(
+                width: 118,
+                icon: Icons.layers_outlined,
+                label: 'Clean Arch',
+                foreground: Color(0xFFBE123C),
+                background: Color(0xFFFEE4E6),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              _SkillChip(
+                width: 85,
+                icon: Icons.polyline_outlined,
+                label: 'UI/UX',
+                foreground: Color(0xFF7E22CE),
+                background: Color(0xFFF3E8FF),
+              ),
+              SizedBox(width: 10),
+              _SkillChip(
+                width: 103,
+                icon: Icons.local_fire_department_outlined,
+                label: 'Firebase',
+                foreground: Color(0xFFB45309),
+                background: Color(0xFFFEF3C7),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SkillChip extends StatelessWidget {
+  const _SkillChip({
+    required this.width,
+    required this.icon,
+    required this.label,
+    required this.foreground,
+    required this.background,
+  });
+  final double width;
+  final IconData icon;
+  final String label;
+  final Color foreground;
+  final Color background;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: 32,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 14, color: foreground),
+          const SizedBox(width: 6),
+          Expanded(
+            child: _FigmaText(
+              label,
+              style: TextStyle(
+                color: foreground,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                height: 1,
+              ),
+              alignment: Alignment.centerLeft,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FeaturedProjects extends StatelessWidget {
+  const _FeaturedProjects();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 336,
+      height: 185,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _SectionHeading('Featured Projects'),
+          SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _ProjectCard(
+                title: 'E-Shop Flutter',
+                subtitle: 'Mobile App \u2022 2026',
+                imageAsset: 'images/crypto_vault.png',
+              ),
+              _ProjectCard(
+                title: 'Crypto Vault',
+                subtitle: 'Finance \u2022 Clean Arch',
+                imageAsset: 'images/e_shop.png',
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProjectCard extends StatelessWidget {
+  const _ProjectCard({
+    required this.title,
+    required this.subtitle,
+    required this.imageAsset,
+  });
+  final String title;
+  final String subtitle;
+  final String imageAsset;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 165,
+      height: 145,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      foregroundDecoration: BoxDecoration(
+        border: Border.all(color: ProfilePage.line),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset(imageAsset, width: 165, height: 85, fit: BoxFit.cover),
+          SizedBox(
+            width: 165,
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 16,
+                    child: _FigmaText(
+                      title,
+                      style: const TextStyle(
+                        color: ProfilePage.ink,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  SizedBox(
+                    height: 13,
+                    child: _FigmaText(
+                      subtitle,
+                      style: const TextStyle(
+                        color: ProfilePage.muted,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        height: 1,
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ContactCard extends StatelessWidget {
+  const _ContactCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 336,
+      height: 192,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: ProfilePage.line),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0A0F172A),
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: const Column(
+        children: [
+          Expanded(
+            child: _ContactTile(
+              icon: Icons.alternate_email,
+              text: 'Contact Information',
+              textWidth: 138,
+              bold: true,
+            ),
+          ),
+          Divider(height: 1, thickness: 1, color: ProfilePage.divider),
+          Expanded(
+            child: _ContactTile(
+              icon: Icons.mail_outline,
+              text: 'alex.rivers@email.com',
+              textWidth: 151,
+            ),
+          ),
+          Divider(height: 1, thickness: 1, color: ProfilePage.divider),
+          Expanded(
+            child: _ContactTile(
+              icon: Icons.phone_outlined,
+              text: '+81 (90) 1234-5678',
+              textWidth: 135,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ContactTile extends StatelessWidget {
+  const _ContactTile({
+    required this.icon,
+    required this.text,
+    required this.textWidth,
+    this.bold = false,
+  });
+  final IconData icon;
+  final String text;
+  final double textWidth;
+  final bool bold;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 18,
+                height: 34,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: ProfilePage.divider,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, size: 18, color: ProfilePage.muted),
+              ),
+              const SizedBox(width: 14),
+              SizedBox(
+                width: textWidth,
+                height: 17,
+                child: _FigmaText(
+                  text,
+                  style: TextStyle(
+                    color: bold ? ProfilePage.ink : const Color(0xFF334155),
+                    fontSize: bold ? 14 : 13,
+                    fontWeight: bold ? FontWeight.w700 : FontWeight.w500,
+                    height: 1,
+                  ),
+                  alignment: Alignment.centerLeft,
+                ),
+              ),
+            ],
+          ),
+          const _ChevronGlyph(),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChevronGlyph extends StatelessWidget {
+  const _ChevronGlyph();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 18,
+      height: 18,
+      child: CustomPaint(painter: _ChevronGlyphPainter()),
+    );
+  }
+}
+
+class _ChevronGlyphPainter extends CustomPainter {
+  const _ChevronGlyphPainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = const Color(0xFFCBD5E1)
+      ..strokeWidth = 1.88
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..style = PaintingStyle.stroke;
+    final center = Offset(size.width / 2, size.height / 2);
+    final path = Path()
+      ..moveTo(center.dx - 2.25, center.dy - 4.5)
+      ..lineTo(center.dx + 2.25, center.dy)
+      ..lineTo(center.dx - 2.25, center.dy + 4.5);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class _FigmaText extends StatelessWidget {
+  const _FigmaText(
+    this.text, {
+    required this.style,
+    this.alignment = Alignment.center,
+  });
+
+  final String text;
+  final TextStyle style;
+  final Alignment alignment;
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: alignment,
+      child: Text(text, maxLines: 1, style: style),
+    );
+  }
+}
