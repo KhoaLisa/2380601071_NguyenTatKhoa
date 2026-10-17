@@ -1,0 +1,3 @@
+@using NguyenTatKhoa_2380601071.Toeic.Dto
+@model IReadOnlyList<ImportValidationErrorDto>
+<div class="table-scroll"><table class="tf-table"><thead><tr><th>Vị trí</th><th>Mã lỗi</th><th>Nguyên nhân</th><th>Cách sửa</th></tr></thead><tbody>@foreach (var error in Model) { <tr><td>@error.Location</td><td><code class="error-code">@error.Code</code></td><td>@error.Message</td><td class="muted">@error.Fix</td></tr> }</tbody></table></div>

@@ -1,0 +1,53 @@
+@using NguyenTatKhoa_2380601071.Toeic
+@using NguyenTatKhoa_2380601071.Web.Models.Exams
+@model LecturerDashboardViewModel
+@{
+    Layout = "~/Views/Shared/_ToeicLayout.cshtml";
+    ViewBag.Title = "Tổng quan";
+    ViewBag.Section = "Dashboard";
+    var published = Model.Exams.Count(exam => exam.Status == ExamStatus.Published);
+    var drafts = Model.Exams.Count(exam => exam.Status == ExamStatus.Draft);
+    var attempts = Model.Exams.Sum(exam => exam.AttemptCount);
+    var completed = Model.Exams.Sum(exam => exam.CompletedAttemptCount);
+}
+<section class="hero">
+    <div><span class="eyebrow">KHÔNG GIAN GIẢNG DẠY · TOEIC READING</span><h1>Nuôi dưỡng tri thức,<br />kiến tạo hành trình học tập.</h1><p>Chào mừng đến TOEICFlow. Quản lý đề thi Reading, chuẩn bị nội dung chất lượng và theo dõi từng bước tiến của sinh viên.</p></div>
+    <div class="actions"><a asp-controller="Exams" asp-action="Import" class="button light"><span aria-hidden="true">↥</span> Nhập đề từ Word (.docx)</a><a asp-controller="Exams" asp-action="Index" class="button subtle">Quản lý ngân hàng đề →</a></div>
+</section>
+<section class="metrics" aria-label="Tổng quan dữ liệu đề thi">
+    <article class="metric"><div class="metric-top"><span>Tổng số đề thi</span><span class="metric-icon" aria-hidden="true">▤</span></div><div class="metric-value" data-metric="exams">@Model.Exams.Count<small>đề</small></div><p>Ngân hàng đề Reading hiện tại</p></article>
+    <article class="metric"><div class="metric-top"><span>Đề đã xuất bản</span><span class="metric-icon" aria-hidden="true">✓</span></div><div class="metric-value" data-metric="published">@published<small>đề</small></div><p>Sẵn sàng trên ứng dụng sinh viên</p></article>
+    <article class="metric gold"><div class="metric-top"><span>Đề bản nháp</span><span class="metric-icon" aria-hidden="true">✎</span></div><div class="metric-value" data-metric="drafts">@drafts<small>đề</small></div><p>Tiếp tục biên soạn và kiểm tra</p></article>
+    <article class="metric"><div class="metric-top"><span>Tổng lượt làm bài</span><span class="metric-icon" aria-hidden="true">↗</span></div><div class="metric-value" data-metric="attempts">@attempts<small>lượt</small></div><p>@completed lượt đã hoàn tất</p></article>
+</section>
+<div class="dashboard-grid">
+    <div>
+        <section class="panel">
+            <div class="panel-header"><div><h2>Đề thi gần đây</h2><p>Không gian biên soạn Part 5, 6 và 7 của bạn.</p></div><a asp-controller="Exams" asp-action="Index" class="button compact subtle">Xem tất cả →</a></div>
+            @if (Model.Exams.Count == 0)
+            {
+                <div class="empty-state"><div class="empty-symbol" aria-hidden="true">▤</div><h3>Khởi đầu một hành trình mới</h3><p>Chưa có đề thi trong ngân hàng. Nhập tài liệu Word để bắt đầu chuẩn bị bài Reading đầu tiên.</p><a asp-controller="Exams" asp-action="Import" class="button primary">Nhập đề đầu tiên</a></div>
+            }
+            else
+            {
+                <div class="table-scroll"><table class="tf-table"><thead><tr><th>Tên đề thi & mã đề</th><th>Cấu trúc</th><th>Lượt nộp</th><th>Trạng thái</th><th></th></tr></thead><tbody>
+                @foreach (var exam in Model.Exams.Take(6))
+                {
+                    <tr><td><div class="exam-cell"><span class="exam-glyph" aria-hidden="true">▤</span><div><a asp-controller="Exams" asp-action="Details" asp-route-id="@exam.Id" class="exam-title">@exam.Title</a><span class="exam-meta">@exam.Code · phiên bản @exam.Version</span></div></div></td><td>@exam.QuestionCount câu<span class="exam-meta">@exam.DurationMinutes phút</span></td><td>@exam.CompletedAttemptCount</td><td><span class="status @(exam.Status == ExamStatus.Published ? "published" : exam.Status == ExamStatus.Archived ? "archived" : "")">@(exam.Status == ExamStatus.Published ? "Đã xuất bản" : exam.Status == ExamStatus.Archived ? "Đã lưu trữ" : "Bản nháp")</span></td><td><a asp-controller="Exams" asp-action="Details" asp-route-id="@exam.Id" aria-label="Xem đề @exam.Title">↗</a></td></tr>
+                }
+                </tbody></table></div>
+            }
+            <div class="panel-footer"><span>@Model.Exams.Count đề trong ngân hàng</span><span>Dữ liệu từ hệ thống</span></div>
+        </section>
+        <section class="panel"><div class="panel-body"><h2>Một quy trình, trọn vẹn trải nghiệm.</h2><p class="muted small">Nhập Word → Xem trước → Chỉnh sửa → Xuất bản → Theo dõi kết quả.</p><div class="format-rows"><div class="format-row"><span>Chuẩn bị nội dung</span><strong>Kiểm tra toàn bộ trước khi lưu</strong></div><div class="format-row"><span>Bảo toàn kết quả</span><strong>Sao chép bản nháp khi đề đã khóa</strong></div></div></div></section>
+    </div>
+    <div class="stack">
+        <section class="panel"><div class="panel-header"><h2>Tiếp tục công việc</h2></div><div class="panel-body"><ul class="info-list">
+            @if (Model.Exams.Count == 0) { <li><strong>Sẵn sàng cho đề thi đầu tiên</strong>Tải tài liệu Word có tag để hệ thống kiểm tra cấu trúc.</li> }
+            @foreach (var exam in Model.Exams.Where(exam => exam.Status == ExamStatus.Draft).Take(3)) { <li><strong><a asp-controller="Exams" asp-action="Edit" asp-route-id="@exam.Id">@exam.Title</a></strong>Bản nháp · @exam.QuestionCount câu · @exam.DurationMinutes phút.</li> }
+            @if (published > 0) { <li><strong>@published đề đã sẵn sàng</strong>Đề đã xuất bản xuất hiện trên ứng dụng sinh viên.</li> }
+            <li><strong>Theo dõi kết quả học tập</strong>@completed lượt hoàn tất được tính trong thống kê đề thi.</li>
+        </ul></div></section>
+        <section class="panel format-card"><div class="panel-body"><span class="eyebrow">READING FORMAT</span><h2 style="margin-top:8px">100 câu. 75 phút.<br />Một hành trình tập trung.</h2><div class="format-rows"><div class="format-row"><span>Part 5 · Câu độc lập</span><strong>101–130</strong></div><div class="format-row"><span>Part 6 · Hoàn thành văn bản</span><strong>131–146</strong></div><div class="format-row"><span>Part 7 · Đọc hiểu</span><strong>147–200</strong></div></div></div></section>
+    </div>
+</div>

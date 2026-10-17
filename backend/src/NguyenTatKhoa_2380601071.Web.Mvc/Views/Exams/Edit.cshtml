@@ -1,0 +1,46 @@
+@using NguyenTatKhoa_2380601071.Toeic
+@using NguyenTatKhoa_2380601071.Toeic.Dto
+@model ExamDetailDto
+@{
+    Layout = "~/Views/Shared/_ToeicLayout.cshtml";
+    ViewBag.Title = "Chỉnh sửa đề thi";
+    ViewBag.Section = "Editor";
+}
+<div class="page-heading"><div><span class="eyebrow">KHÔNG GIAN BIÊN SOẠN · @Model.Code</span><h1>Chăm chút từng câu hỏi.</h1><p>@Model.Title · v@Model.Version</p></div><div class="actions"><a asp-action="Details" asp-route-id="@Model.Id" class="button">◉ Xem trước</a><form asp-action="Validate" method="post" class="inline-form" data-busy><input type="hidden" name="id" value="@Model.Id" /><button type="submit" class="button primary">Kiểm tra lại cấu trúc</button></form></div></div>
+@if (Model.IsLocked) { <div class="notice warning">Nội dung đã khóa vì đã có lượt thi. Dùng chức năng “Tạo bản sao Draft” ở trang xem trước để chỉnh sửa một phiên bản độc lập.</div> }
+<section class="panel"><div class="panel-header"><div><h2>Thông tin chung</h2><p>Thay đổi được kiểm tra phía máy chủ trước khi lưu.</p></div><span class="status @(Model.Status == ExamStatus.Published ? "published" : "")">@(Model.Status == ExamStatus.Published ? "Đã xuất bản" : "Bản nháp")</span></div><div class="panel-body"><form asp-action="UpdateMetadata" method="post" data-busy><input type="hidden" name="Id" value="@Model.Id" /><div class="two-fields"><div class="form-field"><label for="exam-title">Tên đề thi</label><input id="exam-title" name="Title" class="field" value="@Model.Title" maxlength="256" required disabled="@Model.IsLocked" /></div><div class="form-field"><label for="exam-duration">Thời lượng (phút)</label><input id="exam-duration" name="DurationMinutes" class="field" type="number" min="1" max="600" value="@Model.DurationMinutes" required disabled="@Model.IsLocked" /></div></div><button class="button primary" type="submit" disabled="@Model.IsLocked">Lưu thông tin</button><span class="busy-indicator">Đang lưu…</span></form></div></section>
+@if (Model.Groups.Count > 0)
+{
+    <div class="page-heading"><div><span class="eyebrow">PASSAGE WORKSPACE</span><h2>Nội dung bài đọc</h2><p>Văn bản, bảng và hình ảnh được giữ đúng thứ tự trong mỗi nhóm.</p></div></div>
+    @foreach (var group in Model.Groups.OrderBy(group => group.Part).ThenBy(group => group.DisplayOrder))
+    {
+        <details class="details-menu"><summary><span>Part @((int)group.Part) · @(group.Title ?? group.ExternalId)</span><span class="muted small">@group.ContentBlocks.Count khối nội dung</span></summary><div class="editor-body">@foreach (var block in group.ContentBlocks.OrderBy(block => block.DisplayOrder))
+        {
+            if (block.Type == ContentBlockType.Image)
+            {
+                <img src="@block.ContentUrl" alt="@block.FileName" class="editor-image" />
+                <form asp-action="ReplaceImage" method="post" enctype="multipart/form-data" data-busy style="margin-bottom:24px">
+                    <input type="hidden" name="examId" value="@Model.Id" /><input type="hidden" name="blockId" value="@block.Id" />
+                    <div class="form-field"><label for="image-@block.Id">Thay ảnh · @block.DocumentKey · trang @block.SourcePage</label><input id="image-@block.Id" class="field" type="file" name="file" accept="image/png,image/jpeg,image/gif" required disabled="@Model.IsLocked" /><small>PNG, JPEG hoặc GIF, tối đa 10 MB. Giữ đủ các chỗ trống và nội dung của bài đọc.</small></div>
+                    <button type="submit" class="button compact" disabled="@Model.IsLocked">Lưu ảnh thay thế</button><span class="busy-indicator">Đang lưu & kiểm tra…</span>
+                </form>
+            }
+            else
+            {
+                <form asp-action="UpdateContentBlock" method="post" data-busy style="margin-bottom:24px"><input type="hidden" name="ExamId" value="@Model.Id" /><input type="hidden" name="BlockId" value="@block.Id" /><input type="hidden" name="DisplayOrder" value="@block.DisplayOrder" /><div class="form-field"><label for="block-@block.Id">Khối @block.Type · Tài liệu @block.DocumentKey</label><textarea id="block-@block.Id" name="TextContent" class="field" rows="8" disabled="@Model.IsLocked">@block.TextContent</textarea>@if (block.Type == ContentBlockType.Table) { <small>Bảng dùng HTML bảng an toàn. Giữ các thẻ table / tr / td để bảo toàn bố cục.</small> }</div><button type="submit" class="button compact" disabled="@Model.IsLocked">Lưu khối nội dung</button><span class="busy-indicator">Đang lưu…</span></form>
+            }
+        }</div></details>
+    }
+}
+<div class="page-heading" style="margin-top:30px"><div><span class="eyebrow">QUESTION WORKSPACE</span><h2>Câu hỏi & lựa chọn</h2><p>Chọn đáp án đúng, thêm gợi ý và thiết lập hoán vị cho từng câu.</p></div><span class="status published">@Model.Questions.Count câu hỏi</span></div>
+@foreach (var question in Model.Questions.OrderBy(question => question.Part).ThenBy(question => question.DisplayOrder))
+{
+    var options = question.Options.OrderBy(option => option.DisplayOrder).ToList();
+    <details class="details-menu" id="edit-question-@question.OriginalNumber"><summary><span><span class="question-number">@question.OriginalNumber</span> Part @((int)question.Part)</span><span class="muted small">@options.Count lựa chọn</span></summary><div class="editor-body"><form asp-action="UpdateQuestion" method="post" data-busy><input type="hidden" name="ExamId" value="@Model.Id" /><input type="hidden" name="QuestionId" value="@question.Id" /><div class="form-field"><label for="prompt-@question.Id">Nội dung câu hỏi</label><textarea id="prompt-@question.Id" class="field" name="Prompt" rows="3" disabled="@Model.IsLocked">@question.Prompt</textarea></div><div class="form-field"><label>Lựa chọn · đánh dấu đáp án đúng</label>
+        @for (var index = 0; index < options.Count; index++)
+        {
+            var option = options[index];
+            <div class="option-editor"><label for="correct-@option.Id"><input id="correct-@option.Id" type="radio" name="CorrectOptionId" value="@option.Id" checked="@(option.Id == question.CorrectOptionId)" required disabled="@Model.IsLocked" />@option.Key</label><input type="hidden" name="Options[@index].Id" value="@option.Id" /><input name="Options[@index].Text" class="field" value="@option.Text" aria-label="Lựa chọn @option.Key câu @question.OriginalNumber" required disabled="@Model.IsLocked" /></div>
+        }
+        </div><div class="form-field"><label for="hint-@question.Id">Gợi ý trả lời</label><textarea id="hint-@question.Id" class="field" name="Hint" rows="2" disabled="@Model.IsLocked">@question.Hint</textarea></div><div class="check-row"><label><input type="checkbox" name="AllowQuestionShuffle" value="true" checked="@question.AllowQuestionShuffle" disabled="@Model.IsLocked" /> Cho phép hoán vị câu</label><input type="hidden" name="AllowQuestionShuffle" value="false" /><label><input type="checkbox" name="AllowOptionShuffle" value="true" checked="@question.AllowOptionShuffle" disabled="@Model.IsLocked" /> Cho phép hoán vị lựa chọn</label><input type="hidden" name="AllowOptionShuffle" value="false" /></div><button type="submit" class="button primary" disabled="@Model.IsLocked">Lưu câu @question.OriginalNumber</button><span class="busy-indicator">Đang lưu & kiểm tra…</span></form></div></details>
+}

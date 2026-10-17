@@ -1,0 +1,36 @@
+@using NguyenTatKhoa_2380601071.Toeic
+@using NguyenTatKhoa_2380601071.Web.Models.Exams
+@model ExamIndexViewModel
+@{
+    Layout = "~/Views/Shared/_ToeicLayout.cshtml";
+    ViewBag.Title = "Quản lý đề thi";
+    ViewBag.Section = "Exams";
+}
+<div class="page-heading"><div><span class="eyebrow">NGÂN HÀNG ĐỀ THI</span><h1>Quản lý đề thi</h1><p>Từ một bản nháp tốt đến một trải nghiệm học tập trọn vẹn.</p></div><a asp-action="Import" class="button primary">＋ Nhập đề từ Word</a></div>
+<section class="panel">
+    <div class="panel-header"><div><h2>Tất cả đề Reading</h2><p>@Model.TotalCount đề trong ngân hàng · @Model.Exams.Count kết quả đang hiển thị</p></div></div>
+    <form asp-action="Index" method="get" class="filters" role="search">
+        <div class="search-field"><span aria-hidden="true">⌕</span><input class="field" name="search" value="@Model.Search" placeholder="Tìm tên hoặc mã đề thi..." aria-label="Tìm đề thi" /></div>
+        <select name="status" aria-label="Lọc trạng thái">
+            <option value="">Tất cả trạng thái</option>
+            <option value="Draft" selected="@(Model.Status == ExamStatus.Draft)">Bản nháp</option>
+            <option value="Published" selected="@(Model.Status == ExamStatus.Published)">Đã xuất bản</option>
+            <option value="Archived" selected="@(Model.Status == ExamStatus.Archived)">Đã lưu trữ</option>
+        </select>
+        <button class="button compact" type="submit">Áp dụng</button>@if (!string.IsNullOrWhiteSpace(Model.Search) || Model.Status.HasValue) { <a asp-action="Index" class="button compact subtle">Xóa bộ lọc</a> }
+    </form>
+    @if (Model.Exams.Count == 0)
+    {
+        <div class="empty-state"><div class="empty-symbol" aria-hidden="true">▤</div><h3>@(Model.TotalCount == 0 ? "Ngân hàng đề đang chờ bạn" : "Chưa tìm thấy đề phù hợp")</h3><p>@(Model.TotalCount == 0 ? "Nhập tệp .docx có cấu trúc tag để tạo bản nháp đầu tiên." : "Thử một từ khóa hoặc trạng thái khác để tìm đề thi.")</p><a asp-action="@(Model.TotalCount == 0 ? "Import" : "Index")" class="button primary">@(Model.TotalCount == 0 ? "Nhập đề từ Word" : "Xem tất cả đề")</a></div>
+    }
+    else
+    {
+        <div class="table-scroll"><table class="tf-table"><thead><tr><th>Tên đề thi & mã đề</th><th>Cấu trúc</th><th>Trạng thái</th><th>Lượt làm / nộp</th><th>Thao tác</th></tr></thead><tbody>
+        @foreach (var exam in Model.Exams)
+        {
+            <tr><td><div class="exam-cell"><span class="exam-glyph" aria-hidden="true">▤</span><div><a asp-action="Details" asp-route-id="@exam.Id" class="exam-title">@exam.Title</a><span class="exam-meta">@exam.Code · v@exam.Version @(exam.IsLocked ? "· Nội dung đã khóa" : "")</span></div></div></td><td>@exam.QuestionCount câu<span class="exam-meta">@exam.DurationMinutes phút</span></td><td><span class="status @(exam.Status == ExamStatus.Published ? "published" : exam.Status == ExamStatus.Archived ? "archived" : "")">@(exam.Status == ExamStatus.Published ? "Đã xuất bản" : exam.Status == ExamStatus.Archived ? "Đã lưu trữ" : "Bản nháp")</span></td><td>@exam.AttemptCount / @exam.CompletedAttemptCount</td><td><div class="row-actions"><a asp-action="Details" asp-route-id="@exam.Id">Xem trước</a><a asp-action="Edit" asp-route-id="@exam.Id">Chỉnh sửa</a><a asp-action="Statistics" asp-route-id="@exam.Id">Thống kê</a>@if (exam.Status == ExamStatus.Draft) { <a asp-action="Publish" asp-route-id="@exam.Id">Xuất bản</a> }</div></td></tr>
+        }
+        </tbody></table></div>
+    }
+    <div class="panel-footer"><span>Nội dung đã có lượt thi được bảo vệ khỏi thay đổi.</span><span>Part 5 · 6 · 7</span></div>
+</section>

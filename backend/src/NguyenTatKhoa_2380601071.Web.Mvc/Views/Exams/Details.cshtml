@@ -1,0 +1,30 @@
+@using NguyenTatKhoa_2380601071.Toeic
+@using NguyenTatKhoa_2380601071.Toeic.Dto
+@model ExamDetailDto
+@{
+    Layout = "~/Views/Shared/_ToeicLayout.cshtml";
+    ViewBag.Title = "Xem trước đề thi";
+    ViewBag.Section = "Preview";
+}
+<div class="page-heading"><div><span class="eyebrow">XEM TRƯỚC · PHIÊN BẢN @Model.Version</span><h1>@Model.Title</h1><p>@Model.Code · @Model.QuestionCount câu hỏi · @Model.DurationMinutes phút</p></div><div class="actions"><a asp-action="Edit" asp-route-id="@Model.Id" class="button">✎ Chỉnh sửa</a>@if (Model.Status == ExamStatus.Draft) { <a asp-action="Publish" asp-route-id="@Model.Id" class="button primary">Kiểm tra & xuất bản →</a> } else { <span class="status published">Đã xuất bản</span> }</div></div>
+@if (Model.IsLocked) { <div class="notice warning">Đề đã có lượt thi và được khóa nội dung để bảo toàn kết quả. Tạo bản sao Draft bên dưới nếu cần thay đổi.</div> }
+<div class="content-toolbar"><nav class="part-tabs" aria-label="Các phần của đề"><a href="#part-5">Part 5</a><a href="#part-6">Part 6</a><a href="#part-7">Part 7</a></nav><div class="actions"><a asp-action="Statistics" asp-route-id="@Model.Id" class="button compact">↗ Thống kê</a><a asp-action="Index" class="button compact subtle">← Danh sách đề</a></div></div>
+@foreach (var part in new[] { ToeicPart.Part5, ToeicPart.Part6, ToeicPart.Part7 })
+{
+    var questions = Model.Questions.Where(question => question.Part == part).OrderBy(question => question.DisplayOrder).ToList();
+    <section class="panel" id="part-@((int)part)"><div class="part-heading"><span>PART @((int)part)</span><div><h2>@(part == ToeicPart.Part5 ? "Hoàn thành câu" : part == ToeicPart.Part6 ? "Hoàn thành văn bản" : "Đọc hiểu")</h2><small>@questions.Count câu hỏi · @(part == ToeicPart.Part5 ? "Câu hỏi độc lập" : "Nội dung và câu hỏi theo từng nhóm")</small></div></div>
+    @if (part == ToeicPart.Part5)
+    {
+        <div class="part5-grid">@foreach (var question in questions) { @await Html.PartialAsync("_QuestionPreview", question) }</div>
+    }
+    else
+    {
+        @foreach (var group in Model.Groups.Where(group => group.Part == part).OrderBy(group => group.DisplayOrder))
+        {
+            var groupQuestions = questions.Where(question => question.PassageGroupId == group.Id).ToList();
+            <article class="group-preview"><div class="group-label"><div><span class="eyebrow">NHÓM @group.ExternalId</span><h3>@(string.IsNullOrWhiteSpace(group.Title) ? $"Bài đọc · {groupQuestions.Count} câu hỏi" : group.Title)</h3></div><span class="status published">@groupQuestions.Count câu</span></div><div class="preview-split"><div class="passage-paper">@foreach (var block in group.ContentBlocks.OrderBy(block => block.DisplayOrder)) { @await Html.PartialAsync("_ContentBlock", block) }</div><div>@foreach (var question in groupQuestions) { @await Html.PartialAsync("_QuestionPreview", question) }</div></div></article>
+        }
+    }
+    </section>
+}
+<section class="panel"><div class="panel-body"><h2>Một phiên bản mới, một bước tiến mới.</h2><p class="small muted">Sao chép toàn bộ nội dung sang một bản nháp độc lập để biên soạn. Đề gốc và các lượt thi hiện có được giữ nguyên.</p><details class="draft-copy"><summary>Tạo bản sao Draft</summary><form asp-action="CopyToDraft" method="post" data-busy style="margin-top:20px"><input type="hidden" name="id" value="@Model.Id" /><div class="two-fields"><div class="form-field"><label for="copy-title">Tên đề mới (tùy chọn)</label><input class="field" id="copy-title" name="title" maxlength="256" placeholder="Để trống để hệ thống đặt tên" /></div><div class="form-field"><label for="copy-code">Mã đề mới (tùy chọn)</label><input class="field" id="copy-code" name="code" maxlength="64" placeholder="Hệ thống tạo mã duy nhất" /></div></div><button class="button primary" type="submit">Tạo bản sao Draft</button><span class="busy-indicator">Đang tạo bản sao…</span></form></details></div></section>

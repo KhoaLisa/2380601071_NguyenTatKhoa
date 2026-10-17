@@ -1,0 +1,14 @@
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+
+namespace NguyenTatKhoa_2380601071.Configuration
+{
+    public static class HostingEnvironmentExtensions
+    {
+        public static IConfigurationRoot GetAppConfiguration(this IWebHostEnvironment env)
+        {
+            return AppConfigurations.Get(env.ContentRootPath, env.EnvironmentName, env.IsDevelopment());
+        }
+    }
+}

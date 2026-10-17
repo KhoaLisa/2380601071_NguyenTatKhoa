@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed": "#002115", "surface-container-high": "#d5eee0", "secondary": "#476550", "primary-fixed-dim": "#a4d0ba", "inverse-primary": "#a4d0ba", "surface": "#e7fff2", "error": "#ba1a1a", "inverse-on-surface": "#def7e9", "on-background": "#0a1f17", "surface-container-lowest": "#ffffff", "inverse-surface": "#20352c", "secondary-container": "#c9ebd0", "primary": "#0a3626", "background": "#e7fff2", "on-tertiary-fixed": "#271900", "on-primary": "#ffffff", "on-error": "#ffffff", "on-secondary-fixed-variant": "#304d39", "on-surface": "#0a1f17", "outline-variant": "#c1c8c2", "secondary-fixed": "#c9ebd0", "surface-variant": "#d0e8db", "tertiary": "#402b00", "tertiary-container": "#5d4000", "surface-bright": "#e7fff2", "on-error-container": "#93000a", "on-secondary": "#ffffff", "primary-container": "#244d3c", "on-tertiary-fixed-variant": "#5f4100", "on-secondary-fixed": "#042110", "tertiary-fixed-dim": "#ecc073", "secondary-fixed-dim": "#aecfb4", "on-primary-container": "#91bda7", "error-container": "#ffdad6", "surface-tint": "#3e6654", "on-tertiary": "#ffffff", "on-secondary-container": "#4d6b55", "tertiary-fixed": "#ffdeaa", "on-primary-fixed-variant": "#254e3d", "surface-dim": "#c7e0d2", "on-tertiary-container": "#d7ac62", "surface-container-low": "#e1f9ec", "primary-fixed": "#bfedd5", "on-surface-variant": "#414944", "surface-container-highest": "#d0e8db", "surface-container": "#dbf4e6", "outline": "#717974" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter-mobile": "1rem", "space-lg": "1.5rem", "space-xl": "2.25rem", "space-md": "1rem", "space-sm": "0.5rem", "margin": "2rem", "space-xs": "0.25rem", "margin-mobile": "1rem", "gutter": "1.5rem" }, "fontFamily": { "headline-lg": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "body-reading-lg": [ "Inter" ], "display-lg": [ "Plus Jakarta Sans" ], "label-sm": [ "Inter" ], "body-md": [ "Inter" ], "label-md": [ "Inter" ], "headline-sm": [ "Plus Jakarta Sans" ], "display-lg-mobile": [ "Plus Jakarta Sans" ], "body-sm": [ "Inter" ], "caption": [ "Inter" ] }, "fontSize": { "headline-lg": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-md": [ "22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-reading-lg": [ "17px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "400" } ], "display-lg": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-sm": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" } ], "label-md": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" } ], "headline-sm": [ "18px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "display-lg-mobile": [ "30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "body-sm": [ "13px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "caption": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" } ] } } } };</script></head><body class="bg-surface-container-lowest font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-primary text-on-primary z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.06)]"><div class="flex flex-col"><div class="h-20 px-space-lg flex items-center gap-space-sm bg-primary-container/40"><div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-primary-fixed"><span class="material-symbols-outlined text-[24px]">potted_plant</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-primary tracking-tight font-bold">TOEICFlow</span><span class="font-caption text-caption text-primary-fixed-dim uppercase tracking-wider">Giảng Viên Portal</span></div></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs font-caption text-caption text-primary-fixed-dim/70 uppercase tracking-widest font-semibold">Danh mục quản trị</div></div><nav class="flex flex-col gap-1 px-space-md" data-active-classes="bg-primary-container text-on-primary font-semibold"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-primary-fixed-dim hover:bg-primary-container/50 hover:text-on-primary transition-all font-label-md text-label-md" data-path="tong-quan" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Tổng quan</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-primary-fixed-dim hover:bg-primary-container/50 hover:text-on-primary transition-all font-label-md text-label-md" data-path="quan-ly-de-thi" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span>Quản lý đề thi</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-primary-fixed-dim hover:bg-primary-container/50 hover:text-on-primary transition-all font-label-md text-label-md" data-path="nhap-de-tu-word" href="#"><span class="material-symbols-outlined text-[20px]">upload_file</span><span>Nhập đề từ Word</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-primary-fixed-dim hover:bg-primary-container/50 hover:text-on-primary transition-all font-label-md text-label-md" data-path="xem-truoc-de-thi" href="#"><span class="material-symbols-outlined text-[20px]">visibility</span><span>Xem trước đề thi</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-primary-fixed-dim hover:bg-primary-container/50 hover:text-on-primary transition-all font-label-md text-label-md" data-path="chinh-sua-de-thi" href="#"><span class="material-symbols-outlined text-[20px]">draw</span><span>Chỉnh sửa đề thi</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-primary-fixed-dim hover:bg-primary-container/50 hover:text-on-primary transition-all font-label-md text-label-md" data-path="thong-ke-ket-qua-thi" href="#"><span class="material-symbols-outlined text-[20px]">insights</span><span>Thống kê kết quả thi</span></a></nav></div><div class="p-space-md flex flex-col gap-space-sm"><div class="p-space-sm rounded-xl bg-primary-container/60 flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm overflow-hidden"><div class="relative flex-shrink-0 w-9 h-9 rounded-full bg-secondary-container text-on-secondary-fixed flex items-center justify-center font-bold text-label-sm">NA<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-primary-fixed"></span></div><div class="flex flex-col truncate"><span class="font-label-md text-label-md text-on-primary truncate font-medium">ThS. Nguyễn Văn An</span><span class="font-caption text-caption text-primary-fixed-dim truncate">BM Ngoại ngữ</span></div></div><div class="flex items-center gap-1"><a class="w-8 h-8 rounded-lg flex items-center justify-center text-primary-fixed-dim hover:bg-primary-container hover:text-on-primary transition-all" href="#" title="Hỗ trợ &amp; Trợ giúp"><span class="material-symbols-outlined text-[18px]">help_outline</span></a><a class="w-8 h-8 rounded-lg flex items-center justify-center text-primary-fixed-dim hover:bg-primary-container hover:text-on-primary transition-all" href="#" title="Đăng xuất"><span class="material-symbols-outlined text-[18px]">logout</span></a></div></div></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-20 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.03)] z-40 px-space-xl flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant"><span class="hover:text-on-surface transition-colors cursor-pointer">Khoa Tiếng Anh</span><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><span class="text-on-surface font-semibold">Khung Quản Trị</span></div><div class="h-4 w-px bg-outline-variant"></div><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-surface-container-low text-secondary font-label-sm text-label-sm"><span class="material-symbols-outlined text-[16px]">calendar_month</span><span>Học kỳ II - 2024-2025</span></div></div><div class="flex items-center gap-space-md"><div class="relative flex items-center"><button aria-label="Thông báo" class="w-10 h-10 rounded-full bg-surface-container-low hover:bg-surface-container-high text-on-surface flex items-center justify-center transition-colors relative" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error"></span></button></div><a class="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded-xl bg-primary text-on-primary hover:bg-primary-container transition-all font-label-md text-label-md shadow-sm" data-path="nhap-de-tu-word" href="#"><span class="material-symbols-outlined text-[18px]">add_circle</span><span>Tải lên đề mới</span></a><div class="h-6 w-px bg-outline-variant"></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-20 w-full min-h-[calc(100vh-5rem)] bg-surface-container-low px-space-xl py-space-lg"><div class="flex flex-col w-full gap-space-lg">
+<!-- Top Context Header & Status Banner -->
+<div class="flex flex-col gap-space-md">
+<!-- Breadcrumb & Document Metadata Pill -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+<span class="text-secondary font-medium">Nhập đề từ Word</span>
+<span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span>
+<span class="text-on-surface font-semibold">Báo cáo kiểm tra cú pháp</span>
+</div>
+<div class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container text-secondary text-label-sm font-label-sm shadow-sm">
+<span class="material-symbols-outlined text-[16px]">description</span>
+<span class="font-mono text-on-surface font-semibold">De_Thi_TOEIC_Reading_Test_09_Draft.docx</span>
+<span class="text-outline">|</span>
+<span>1.84 MB</span>
+<span class="text-outline">|</span>
+<span>23/05/2025 14:32</span>
+</div>
+</div>
+<!-- Main Alert Hero Panel -->
+<div class="relative overflow-hidden rounded-2xl bg-error-container/40 p-space-lg shadow-sm">
+<div class="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-error/5 blur-2xl pointer-events-none"></div>
+<div class="relative flex flex-col md:flex-row md:items-start justify-between gap-space-lg">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-error text-on-error flex items-center justify-center flex-shrink-0 shadow-md">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div class="flex flex-col gap-1 max-w-3xl">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded-md bg-error text-on-error font-label-sm text-caption tracking-wider uppercase font-bold">
+                Thất bại
+              </span>
+<h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">
+                Kết quả kiểm tra tệp Word: Phát hiện lỗi cú pháp
+              </h1>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-relaxed">
+              Tệp <span class="font-semibold text-on-surface font-mono">De_Thi_TOEIC_Reading_Test_09_Draft.docx</span> <span class="font-bold text-error uppercase">không đủ điều kiện nhập</span>. Hệ thống đã từ chối toàn bộ quá trình nhập đề (<strong class="font-semibold text-on-surface">0/100 câu</strong> được lưu) để bảo toàn tính toàn vẹn dữ liệu đề thi chuẩn hóa.
+            </p>
+<div class="flex flex-wrap items-center gap-space-md mt-2 pt-2 text-label-sm font-label-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5 text-error font-semibold">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+<span>Tìm thấy 3 lỗi nghiêm trọng (Critical)</span>
+</div>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<div class="flex items-center gap-1.5 text-tertiary-container font-semibold">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span>1 cảnh báo định dạng (Warning)</span>
+</div>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[18px]">rule</span>
+<span>Tiến trình dừng tại mục Part 7</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Metric Counter Pill -->
+<div class="flex md:flex-col items-center justify-center bg-surface-container-lowest/80 backdrop-blur-sm px-space-lg py-space-md rounded-xl shadow-sm text-center flex-shrink-0 min-w-[140px]">
+<span class="font-caption text-caption uppercase tracking-wider text-outline font-semibold">Tỷ lệ hợp lệ</span>
+<span class="font-display-lg text-display-lg text-error font-bold leading-none my-1">0%</span>
+<span class="font-caption text-caption text-error font-medium">Bị chặn hoàn toàn</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-md bg-surface-container-lowest p-space-md rounded-2xl shadow-sm">
+<div class="flex flex-wrap items-center gap-space-sm">
+<a class="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded-xl bg-primary text-on-primary hover:bg-primary-container transition-all font-label-md text-label-md shadow-sm" data-path="nhap-de-tu-word" href="#">
+<span class="material-symbols-outlined text-[20px]">upload</span>
+<span>Tải lại tệp đã sửa</span>
+</a>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-variant text-on-surface transition-all font-label-md text-label-md" onclick="downloadValidationLog()" type="button">
+<span class="material-symbols-outlined text-[20px] text-secondary">file_download</span>
+<span>Tải file log chi tiết (.txt)</span>
+</button>
+<a class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-xl hover:bg-surface-container text-secondary transition-all font-label-md text-label-md" data-path="nhap-de-tu-word" href="#">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+<span>Quay lại trang nhập đề</span>
+</a>
+</div>
+<!-- Quick Utilities -->
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">auto_stories</span>
+<span>Quy tắc chuẩn: <a class="underline hover:text-primary transition-colors font-medium" href="#">Tài liệu cú pháp v2.4</a></span>
+</div>
+</div>
+<!-- Main Diagnostic Area: Split Layout -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column: Filterable Error List (7 cols on xl) -->
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<!-- Filter Segmented Tabs -->
+<div class="flex items-center justify-between bg-surface-container-lowest p-1.5 rounded-xl shadow-sm overflow-x-auto">
+<div class="flex items-center gap-1" id="filter-tab-group">
+<button class="filter-tab px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all flex items-center gap-1.5" onclick="filterErrors('all', this)" type="button">
+<span>Tất cả lỗi</span>
+<span class="px-1.5 py-0.2 rounded-full bg-primary-container text-primary-fixed text-caption font-bold">4</span>
+</button>
+<button class="filter-tab px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all flex items-center gap-1.5" onclick="filterErrors('part5', this)" type="button">
+<span>Lỗi Part 5</span>
+<span class="px-1.5 py-0.2 rounded-full bg-error-container text-error text-caption font-bold">1</span>
+</button>
+<button class="filter-tab px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all flex items-center gap-1.5" onclick="filterErrors('reading', this)" type="button">
+<span>Part 6 &amp; 7</span>
+<span class="px-1.5 py-0.2 rounded-full bg-error-container text-error text-caption font-bold">2</span>
+</button>
+<button class="filter-tab px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all flex items-center gap-1.5" onclick="filterErrors('warning', this)" type="button">
+<span>Cảnh báo</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-secondary text-caption font-bold">1</span>
+</button>
+</div>
+<div class="hidden sm:flex items-center gap-1 text-caption text-outline px-2">
+<span class="material-symbols-outlined text-[16px]">touch_app</span>
+<span>Chọn lỗi để soi mã</span>
+</div>
+</div>
+<!-- Error Stack List -->
+<div class="flex flex-col gap-space-sm" id="error-card-stack">
+<!-- Error Item 1: Part 5 (Critical) -->
+<div class="error-item cursor-pointer p-space-md rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col gap-space-sm ring-2 ring-primary" data-category="part5" data-code-id="snippet-q118" onclick="selectSnippet('snippet-q118', this)">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Câu 118</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-secondary font-medium">Part 5: Incomplete Sentences</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-error-container text-error font-label-sm text-caption font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">report</span>
+              Nghiêm trọng
+            </span>
+</div>
+<div class="flex items-baseline gap-space-xs font-mono text-body-sm text-on-surface">
+<span class="text-outline font-sans text-caption">Thẻ liên quan:</span>
+<code class="px-2 py-0.5 rounded bg-surface-container text-primary font-bold">[CORRECT]</code>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+            Thiếu thẻ khai báo đáp án đúng hoặc tồn tại nhiều hơn một thẻ <code class="font-mono text-error font-bold">[CORRECT]</code> trong khối cấu trúc câu hỏi.
+          </p>
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-start gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary flex-shrink-0 mt-0.5">lightbulb</span>
+<div class="text-body-sm font-body-sm leading-relaxed">
+<strong class="font-semibold text-primary">Gợi ý khắc phục:</strong> Thêm thẻ <code class="font-mono px-1 py-0.5 rounded bg-surface-container font-bold text-primary">[CORRECT:C]</code> xác định duy nhất 1 đáp án đúng sau 4 lựa chọn [A], [B], [C], [D].
+            </div>
+</div>
+</div>
+<!-- Error Item 2: Part 6 Group (Critical) -->
+<div class="error-item cursor-pointer p-space-md rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col gap-space-sm" data-category="reading" data-code-id="snippet-p6" onclick="selectSnippet('snippet-p6', this)">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Đoạn văn Part 6</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-secondary font-medium">Nhóm câu 135 – 138</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-error-container text-error font-label-sm text-caption font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">report</span>
+              Nghiêm trọng
+            </span>
+</div>
+<div class="flex items-baseline gap-space-xs font-mono text-body-sm text-on-surface">
+<span class="text-outline font-sans text-caption">Thẻ liên quan:</span>
+<code class="px-2 py-0.5 rounded bg-surface-container text-primary font-bold">[PASSAGE]</code>
+<code class="px-2 py-0.5 rounded bg-surface-container text-primary font-bold">[BLANK:136]</code>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+            Thiếu thẻ đóng <code class="font-mono text-error font-bold">[/PASSAGE]</code> kết thúc đoạn văn bản hoặc thiếu khoảng trống điền từ <code class="font-mono text-error font-bold">[BLANK:136]</code>.
+          </p>
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-start gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary flex-shrink-0 mt-0.5">lightbulb</span>
+<div class="text-body-sm font-body-sm leading-relaxed">
+<strong class="font-semibold text-primary">Gợi ý khắc phục:</strong> Kiểm tra cặp thẻ mở <code class="font-mono px-1 py-0.5 rounded bg-surface-container font-bold text-primary">[PASSAGE]</code> và đóng <code class="font-mono px-1 py-0.5 rounded bg-surface-container font-bold text-primary">[/PASSAGE]</code>, đảm bảo đủ 4 vị trí điền từ từ <code class="font-mono font-bold">[BLANK:135]</code> đến <code class="font-mono font-bold">[BLANK:138]</code>.
+            </div>
+</div>
+</div>
+<!-- Error Item 3: Part 7 Missing Graphic (Critical) -->
+<div class="error-item cursor-pointer p-space-md rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col gap-space-sm" data-category="reading" data-code-id="snippet-p7" onclick="selectSnippet('snippet-p7', this)">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Part 7: Đoạn kép</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-secondary font-medium">Nhóm câu 181 – 185</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-error-container text-error font-label-sm text-caption font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">report</span>
+              Nghiêm trọng
+            </span>
+</div>
+<div class="flex items-baseline gap-space-xs font-mono text-body-sm text-on-surface">
+<span class="text-outline font-sans text-caption">Thẻ liên quan:</span>
+<code class="px-2 py-0.5 rounded bg-surface-container text-primary font-bold">[IMAGE:Schedule_Q4.png]</code>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+            Không tìm thấy tệp hình ảnh đính kèm tương ứng trong thư mục lưu trữ tạm thời hoặc tài liệu tham chiếu file rỗng.
+          </p>
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-start gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary flex-shrink-0 mt-0.5">lightbulb</span>
+<div class="text-body-sm font-body-sm leading-relaxed">
+<strong class="font-semibold text-primary">Gợi ý khắc phục:</strong> Đảm bảo hình ảnh được dán nhúng trực tiếp (Inline Picture) vào file .docx hoặc đính kèm gói nén Media tương ứng trước khi parse.
+            </div>
+</div>
+</div>
+<!-- Warning Item 4: Question 142 (Warning) -->
+<div class="error-item cursor-pointer p-space-md rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col gap-space-sm" data-category="warning" data-code-id="snippet-q142" onclick="selectSnippet('snippet-q142', this)">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Câu 142</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-secondary font-medium">Part 6: Text Completion</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-highest text-secondary font-label-sm text-caption font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
+              Khuyến nghị
+            </span>
+</div>
+<div class="flex items-baseline gap-space-xs font-mono text-body-sm text-on-surface">
+<span class="text-outline font-sans text-caption">Thẻ liên quan:</span>
+<code class="px-2 py-0.5 rounded bg-surface-container text-secondary font-bold">[EXPLANATION]</code>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+            Chưa nhập phần giải thích chi tiết cho câu hỏi. Hệ thống vẫn cho phép nhập nhưng khuyến nghị bổ sung để hỗ trợ học viên xem kết quả phân tích sau thi.
+          </p>
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-start gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary flex-shrink-0 mt-0.5">lightbulb</span>
+<div class="text-body-sm font-body-sm leading-relaxed">
+<strong class="font-semibold text-primary">Gợi ý khắc phục:</strong> Bổ sung thẻ <code class="font-mono px-1 py-0.5 rounded bg-surface-container font-bold text-primary">[EXPLANATION: Căn cứ vào trạng từ...]</code> ngay dưới khối câu hỏi 142.
+            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Interactive Code Inspector & Reference Sandbox (5 cols on xl) -->
+<div class="xl:col-span-5 flex flex-col gap-space-md sticky top-24">
+<!-- Code Snippet Inspector Panel -->
+<div class="bg-primary text-on-primary rounded-2xl overflow-hidden shadow-lg flex flex-col">
+<!-- Terminal Header -->
+<div class="px-space-md py-3 bg-primary-container/80 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-error"></span>
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="w-3 h-3 rounded-full bg-primary-fixed"></span>
+<span class="ml-2 font-mono text-caption text-primary-fixed-dim font-medium" id="snippet-filename">DOCX Line Inspector — Dòng 314</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1.5 rounded-lg hover:bg-primary text-primary-fixed-dim hover:text-on-primary transition-colors text-caption flex items-center gap-1" onclick="copySnippetText()" title="Sao chép khối lỗi" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span class="font-mono">Copy</span>
+</button>
+</div>
+</div>
+<!-- Code Block Viewer: Active Item 1 (Default) -->
+<div class="snippet-view p-space-md font-mono text-body-sm leading-relaxed overflow-x-auto" id="snippet-q118">
+<div class="text-primary-fixed-dim/60 select-none pb-2 font-caption border-b border-primary-container/40">
+            // Đoạn văn bản trích xuất từ tài liệu Word gốc:
+          </div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">312</span>
+<span>[QUESTION:118] Ms. Henderson requested that all expense reports be submitted ---- Friday at 5:00 P.M.</span>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">313</span>
+<span>[A] by</span>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">314</span>
+<span>[B] until</span>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">315</span>
+<span>[C] prior</span>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">316</span>
+<span>[D] during</span>
+</div>
+<!-- Critical Error Line Highlighted -->
+<div class="flex items-start gap-3 py-1.5 bg-error/25 text-on-error rounded-lg px-2 -mx-2 my-1 border-l-4 border-error">
+<span class="w-8 text-right select-none text-error-container font-caption font-bold">317</span>
+<div class="flex flex-col">
+<span class="font-bold underline decoration-error text-error-container">[ANSWER:A] &lt;-- Cú pháp sai! Thiếu [CORRECT]</span>
+<span class="text-caption text-error-container/90 mt-0.5 font-sans">✕ Error Parser: Thẻ hợp lệ phải là [CORRECT:A]</span>
+</div>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">318</span>
+<span>[EXPLANATION: Hành động submit trước một mốc thời gian cụ thể cần giới từ By.]</span>
+</div>
+</div>
+<!-- Code Block Viewer: Item 2 (Hidden by default) -->
+<div class="snippet-view hidden p-space-md font-mono text-body-sm leading-relaxed overflow-x-auto" id="snippet-p6">
+<div class="text-primary-fixed-dim/60 select-none pb-2 font-caption border-b border-primary-container/40">
+            // Đoạn văn bản trích xuất từ Part 6:
+          </div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">445</span>
+<span>[PASSAGE:135-138]</span>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">446</span>
+<span>Thank you for contacting Oakville Logistics. We received your request...</span>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">447</span>
+<span>Your shipment is currently [BLANK:135] through our customs terminal...</span>
+</div>
+<!-- Critical Error Highlight -->
+<div class="flex items-start gap-3 py-1.5 bg-error/25 text-on-error rounded-lg px-2 -mx-2 my-1 border-l-4 border-error">
+<span class="w-8 text-right select-none text-error-container font-caption font-bold">448</span>
+<div class="flex flex-col">
+<span class="font-bold underline decoration-error text-error-container">We will notify you immediately once clearance is obtained. (Thiếu [BLANK:136])</span>
+<span class="text-caption text-error-container/90 mt-0.5 font-sans">✕ Error Parser: Không tìm thấy placeholder [BLANK:136]</span>
+</div>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">449</span>
+<span>[BLANK:137] our logistics manager has inspected the cargo seals.</span>
+</div>
+</div>
+<!-- Code Block Viewer: Item 3 (Hidden) -->
+<div class="snippet-view hidden p-space-md font-mono text-body-sm leading-relaxed overflow-x-auto" id="snippet-p7">
+<div class="text-primary-fixed-dim/60 select-none pb-2 font-caption border-b border-primary-container/40">
+            // Đoạn văn bản trích xuất từ Part 7:
+          </div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">780</span>
+<span>[PASSAGE:181-185]</span>
+</div>
+<!-- Critical Missing Asset Highlight -->
+<div class="flex items-start gap-3 py-1.5 bg-error/25 text-on-error rounded-lg px-2 -mx-2 my-1 border-l-4 border-error">
+<span class="w-8 text-right select-none text-error-container font-caption font-bold">781</span>
+<div class="flex flex-col">
+<span class="font-bold underline decoration-error text-error-container">[IMAGE:Schedule_Q4.png]</span>
+<span class="text-caption text-error-container/90 mt-0.5 font-sans">✕ File Not Found: Schedule_Q4.png không nằm trong word/media/</span>
+</div>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">782</span>
+<span>Refer to the above timetable and the following e-mail.</span>
+</div>
+</div>
+<!-- Code Block Viewer: Item 4 Warning (Hidden) -->
+<div class="snippet-view hidden p-space-md font-mono text-body-sm leading-relaxed overflow-x-auto" id="snippet-q142">
+<div class="text-primary-fixed-dim/60 select-none pb-2 font-caption border-b border-primary-container/40">
+            // Đoạn văn bản trích xuất từ Câu 142:
+          </div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">510</span>
+<span>[QUESTION:142]</span>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">511</span>
+<span>[A] thoroughly</span>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">512</span>
+<span>[B] thorough</span>
+</div>
+<div class="flex items-start gap-3 py-0.5 text-primary-fixed-dim/70">
+<span class="w-8 text-right select-none text-primary-fixed-dim/40 font-caption">513</span>
+<span>[CORRECT:A]</span>
+</div>
+<!-- Warning Highlight -->
+<div class="flex items-start gap-3 py-1.5 bg-tertiary-container/40 text-on-tertiary rounded-lg px-2 -mx-2 my-1 border-l-4 border-tertiary-fixed-dim">
+<span class="w-8 text-right select-none text-tertiary-fixed font-caption font-bold">514</span>
+<div class="flex flex-col">
+<span class="font-bold text-tertiary-fixed">[Thiếu thẻ giải thích EXPLANATION]</span>
+<span class="text-caption text-tertiary-fixed/90 mt-0.5 font-sans">⚠ Cảnh báo: Học viên sẽ không thấy lời giải sau khi làm bài.</span>
+</div>
+</div>
+</div>
+<!-- Terminal Footer Guidance -->
+<div class="p-space-sm bg-primary-container/40 flex items-center justify-between text-caption font-mono text-primary-fixed-dim">
+<span>Engine: RoslynDocxParser v3.1</span>
+<span class="flex items-center gap-1 text-primary-fixed">
+<span class="w-2 h-2 rounded-full bg-primary-fixed animate-ping"></span>
+            Chế độ kiểm tra nghiêm ngặt
+          </span>
+</div>
+</div>
+<!-- Quick Reference Syntax Cheat Card -->
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">bookmark_manager</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Cú pháp chuẩn mẫu</h2>
+</div>
+<span class="font-caption text-caption text-outline">Bản mẫu Word</span>
+</div>
+<div class="space-y-2 text-body-sm font-body-sm">
+<div class="p-2.5 rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">1. Khai báo câu hỏi &amp; lựa chọn</span>
+<code class="font-mono text-caption text-secondary">[QUESTION:101] Content sentence...<br/>[A] Option A<br/>[B] Option B<br/>[C] Option C<br/>[D] Option D<br/>[CORRECT:A]</code>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">2. Khai báo đoạn đọc Part 6 &amp; 7</span>
+<code class="font-mono text-caption text-secondary">[PASSAGE:131-134]<br/>Paragraph with [BLANK:131] and [BLANK:132]...<br/>[/PASSAGE]</code>
+</div>
+</div>
+<a class="mt-1 flex items-center justify-center gap-1.5 py-2 px-space-md rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+<span>Tải file Word mẫu chuẩn (.docx)</span>
+</a>
+</div>
+<!-- Live Support Card -->
+<div class="p-space-md rounded-2xl bg-surface-container-high/60 flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">support_agent</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Cần bộ môn hỗ trợ kiểm tra?</span>
+<span class="font-caption text-caption text-on-surface-variant">Kỹ thuật viên phòng đào tạo luôn túc trực</span>
+</div>
+</div>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface transition-colors font-label-sm text-label-sm font-semibold shadow-sm" type="button">
+          Gửi yêu cầu
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function selectSnippet(snippetId, element) {
+    // Hide all snippet views
+    const views = document.querySelectorAll('.snippet-view');
+    views.forEach(v => v.classList.add('hidden'));
+
+    // Show target view
+    const target = document.getElementById(snippetId);
+    if (target) {
+      target.classList.remove('hidden');
+    }
+
+    // Update active state in error stack
+    const items = document.querySelectorAll('.error-item');
+    items.forEach(item => item.classList.remove('ring-2', 'ring-primary'));
+    element.classList.add('ring-2', 'ring-primary');
+
+    // Update filename header
+    const filenameLabel = document.getElementById('snippet-filename');
+    if (snippetId === 'snippet-q118') {
+      filenameLabel.textContent = 'DOCX Line Inspector — Dòng 314';
+    } else if (snippetId === 'snippet-p6') {
+      filenameLabel.textContent = 'DOCX Line Inspector — Dòng 448';
+    } else if (snippetId === 'snippet-p7') {
+      filenameLabel.textContent = 'DOCX Line Inspector — Dòng 781';
+    } else if (snippetId === 'snippet-q142') {
+      filenameLabel.textContent = 'DOCX Line Inspector — Dòng 514';
+    }
+  }
+
+  function filterErrors(category, button) {
+    // Switch tab styles
+    const tabs = document.querySelectorAll('.filter-tab');
+    tabs.forEach(tab => {
+      tab.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+      tab.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+    });
+
+    button.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+    button.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+
+    // Filter items
+    const cards = document.querySelectorAll('.error-item');
+    cards.forEach(card => {
+      if (category === 'all' || card.dataset.category === category) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  function copySnippetText() {
+    const activeSnippet = document.querySelector('.snippet-view:not(.hidden)');
+    if (activeSnippet) {
+      navigator.clipboard.writeText(activeSnippet.innerText).then(() => {
+        alert('Đã sao chép đoạn mã lỗi vào clipboard!');
+      });
+    }
+  }
+
+  function downloadValidationLog() {
+    const logContent = `=====================================================
+TOEICFlow Academic Parser - Validation Report
+File: De_Thi_TOEIC_Reading_Test_09_Draft.docx
+Status: REJECTED (Total saved: 0/100)
+Timestamp: 2025-05-23 14:32:10 UTC+7
+-----------------------------------------------------
+[CRITICAL] Question 118 (Part 5):
+  - Tag: [CORRECT]
+  - Error: Missing valid correct tag. Found invalid format [ANSWER:A] at line 317.
+  - Fix: Use [CORRECT:A]
+
+[CRITICAL] Passage Group 135-138 (Part 6):
+  - Tag: [PASSAGE], [BLANK:136]
+  - Error: Missing blank token [BLANK:136] in paragraph text.
+  - Fix: Provide matching placeholder [BLANK:136]
+
+[CRITICAL] Passage Group 181-185 (Part 7):
+  - Tag: [IMAGE:Schedule_Q4.png]
+  - Error: Referenced media file 'Schedule_Q4.png' not located in docx bundle.
+  - Fix: Re-embed schedule table or insert image directly.
+
+[WARNING] Question 142 (Part 6):
+  - Tag: [EXPLANATION]
+  - Error: Missing student feedback rationale. Non-blocking.
+=====================================================`;
+    const blob = new Blob([logContent], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'validation_report_Test_09.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+</script></main></div></body></html>

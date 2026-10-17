@@ -1,0 +1,9 @@
+@using NguyenTatKhoa_2380601071.Toeic.Dto
+@model IReadOnlyList<ExamListItemDto>
+@{
+    Layout = "~/Views/Shared/_ToeicLayout.cshtml";
+    ViewBag.Title = "Thống kê kết quả";
+    ViewBag.Section = "Statistics";
+}
+<div class="page-heading"><div><span class="eyebrow">THẤU HIỂU ĐỂ ĐỒNG HÀNH</span><h1>Nhìn lại những bước tiến.</h1><p>Chọn đề thi để xem lượt làm, tỷ lệ đúng trung bình và các câu cần ôn tập.</p></div></div>
+<section class="panel"><div class="panel-header"><h2>Kết quả theo đề thi</h2></div>@if (Model.Count == 0) { <div class="empty-state"><div class="empty-symbol">↗</div><h3>Chưa có đề thi để thống kê</h3><p>Kết quả được tổng hợp từ những lượt thi thực tế của sinh viên.</p><a asp-action="Import" class="button primary">Nhập đề từ Word</a></div> } else { <div class="table-scroll"><table class="tf-table"><thead><tr><th>Đề thi</th><th>Lượt bắt đầu</th><th>Đã hoàn tất</th><th></th></tr></thead><tbody>@foreach (var exam in Model) { <tr><td><span class="exam-title">@exam.Title</span><span class="exam-meta">@exam.Code</span></td><td>@exam.AttemptCount</td><td>@exam.CompletedAttemptCount</td><td><a asp-action="Statistics" asp-route-id="@exam.Id" class="button compact">Xem thống kê →</a></td></tr> }</tbody></table></div> }</section>

@@ -1,0 +1,4 @@
+@using NguyenTatKhoa_2380601071.Toeic
+@using NguyenTatKhoa_2380601071.Toeic.Dto
+@model ContentBlockManagementDto
+<div class="content-block" data-document="@Model.DocumentKey">@if (Model.Type == ContentBlockType.Image) { <img src="@Model.ContentUrl" alt="@(Model.FileName ?? "Hình trong bài đọc")" loading="lazy" /> } else if (Model.Type == ContentBlockType.Table) { <div class="passage-table">@Html.Raw(Model.TextContent)</div> } else { <div class="text-block">@Model.TextContent</div> }</div>

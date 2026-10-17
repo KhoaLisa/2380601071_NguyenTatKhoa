@@ -1,0 +1,39 @@
+# Workspace-local SDKs, dependency caches, and helper tool installations.
+/.dotnet/
+/.dotnet_home/
+/.tools/
+
+# Local run output and archived smoke-test logs.
+*.log
+/logs/
+**/[Ll]ogs/
+
+# Private machine configuration, credentials, and database files.
+**/appsettings.Local.json
+**/secrets.json
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.pem
+*.key
+*.mdf
+*.ldf
+*.bak
+
+# Local test identities, learner results, and database snapshots are not source.
+/docs/testing/evidence/database-*.json
+/docs/testing/evidence/*state.json
+/docs/testing/evidence/browser-current-attempt.json
+
+# Generated build output and IDE caches (keep backend/build scripts).
+**/[Bb]in/
+**/[Oo]bj/
+**/node_modules/
+**/.dart_tool/
+/frontend/build/
+**/.vs/
+**/.idea/
+**/__pycache__/
+*.pyc

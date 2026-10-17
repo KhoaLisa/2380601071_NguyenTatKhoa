@@ -1,0 +1,24 @@
+@using NguyenTatKhoa_2380601071.Web.Models.Exams
+@model ExamImportViewModel
+@{
+    Layout = "~/Views/Shared/_ToeicLayout.cshtml";
+    ViewBag.Title = "Nhập đề từ Word";
+    ViewBag.Section = "Import";
+}
+<div class="page-heading"><div><span class="eyebrow">CHUẨN BỊ MỘT ĐỀ THI MỚI</span><h1>Từ tài liệu đến trải nghiệm.</h1><p>Tải tệp Word, kiểm tra nội dung và tạo một bản nháp sẵn sàng biên soạn.</p></div><a asp-action="Index" class="button">← Danh sách đề</a></div>
+<div class="upload-layout"><section class="panel"><div class="panel-header"><div><h2>Nhập đề TOEIC Reading</h2><p>Toàn bộ tài liệu được kiểm tra trước khi ghi dữ liệu.</p></div><span class="status published">.DOCX</span></div><div class="panel-body"><form asp-action="Import" method="post" enctype="multipart/form-data" data-busy>
+    <label class="upload-zone" for="word-file"><span class="upload-icon" aria-hidden="true">↥</span><strong>Chọn tệp Word của bạn</strong><small>Hoặc kéo thả một tệp .docx vào đây · tối đa 25 MB</small><input id="word-file" type="file" name="File" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required /><span class="upload-name">Chưa chọn tệp</span></label>
+    <div class="notice warning" style="margin-top:20px;margin-bottom:0">Dùng đúng bộ tag của tài liệu được hỗ trợ. Tệp thiếu câu, sai lựa chọn hoặc sai liên kết passage sẽ được trả về kèm vị trí và hướng dẫn sửa.</div>
+    <div class="upload-actions"><span class="busy-indicator" role="status">Đang kiểm tra tài liệu…</span><button class="button" asp-action="ValidateWord" type="submit">Kiểm tra tệp</button><button class="button primary" type="submit">Nhập thành bản nháp →</button></div>
+</form></div></section><aside class="stack"><section class="panel"><div class="panel-body"><h2>Ba bước nhẹ nhàng</h2><ol class="step-list" style="margin-top:24px"><li><strong>Chuẩn bị tài liệu</strong>Giữ đúng các tag đề, nhóm bài đọc, câu hỏi, lựa chọn và đáp án.</li><li><strong>Kiểm tra cấu trúc</strong>Xem lỗi chi tiết và sửa trong Word trước khi nhập.</li><li><strong>Biên soạn & xuất bản</strong>Xem trước bản nháp, hoàn thiện nội dung rồi xác nhận xuất bản.</li></ol></div></section><section class="panel format-card"><div class="panel-body"><span class="eyebrow">AN TÂM VỚI NỘI DUNG</span><h3 style="margin-top:10px">Mỗi lần nhập là một giao dịch đầy đủ.</h3><p class="small muted">Tệp không hợp lệ sẽ không để lại đề thi hoặc ảnh được lưu dở. Đề mới luôn bắt đầu ở trạng thái Bản nháp.</p></div></section></aside></div>
+@if (Model.Result != null)
+{
+    if (Model.Result.Succeeded && Model.ValidationOnly)
+    {
+        <div class="notice success" role="status">✓ @Model.FileName hợp lệ: @Model.Result.QuestionCount câu hỏi. Chưa lưu vào ngân hàng đề. Chọn lại tệp và bấm “Nhập thành bản nháp” để tiếp tục.</div>
+    }
+    else if (!Model.Result.Succeeded)
+    {
+        <section class="panel"><div class="panel-header"><div><h2>Cần điều chỉnh tài liệu</h2><p>@Model.FileName · @Model.Result.Errors.Count lỗi cần xử lý. Dữ liệu đề chưa được lưu.</p></div><span class="status">Chưa hợp lệ</span></div>@await Html.PartialAsync("_ValidationErrors", Model.Result.Errors)</section>
+    }
+}

@@ -1,0 +1,58 @@
+@using Abp.Web.Security.AntiForgery
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Hosting
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IWebHostEnvironment HostingEnvironment
+@{
+    AbpAntiForgeryManager.SetCookie(Context);
+    var active = ViewBag.Section as string ?? "Exams";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#193C30" />
+    <title>@ViewBag.Title · TOEICFlow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="~/css/toeicflow.css" rel="stylesheet" asp-append-version="true" />
+    @await RenderSectionAsync("styles", required: false)
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Đến nội dung chính</a>
+    <aside class="tf-sidebar" id="lecturer-navigation" aria-label="Điều hướng giảng viên">
+        <a class="tf-brand" asp-controller="Home" asp-action="Index">
+            <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V13m0 8C7 22 4 15 5 9c7-1 12 3 11 12Zm0-5C15 8 20 4 27 5c1 7-3 12-11 11Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+            <span><strong>TOEICFlow</strong><small>GIẢNG VIÊN PORTAL</small></span>
+        </a>
+        <div class="nav-caption">KHÔNG GIAN QUẢN LÝ</div>
+        <nav class="tf-nav">
+            <a class="@(active == "Dashboard" ? "active" : "")" asp-controller="Home" asp-action="Index"><span aria-hidden="true">▦</span>Tổng quan</a>
+            <a class="@(active == "Exams" ? "active" : "")" asp-controller="Exams" asp-action="Index"><span aria-hidden="true">▤</span>Quản lý đề thi</a>
+            <a class="@(active == "Import" ? "active" : "")" asp-controller="Exams" asp-action="Import"><span aria-hidden="true">↥</span>Nhập đề từ Word</a>
+            <a class="@(active == "Preview" ? "active" : "")" asp-controller="Exams" asp-action="Index"><span aria-hidden="true">◉</span>Xem trước đề thi</a>
+            <a class="@(active == "Editor" ? "active" : "")" asp-controller="Exams" asp-action="Index"><span aria-hidden="true">✎</span>Chỉnh sửa đề thi</a>
+            <a class="@(active == "Statistics" ? "active" : "")" asp-controller="Exams" asp-action="Statistics"><span aria-hidden="true">↗</span>Thống kê kết quả</a>
+        </nav>
+        <div class="sidebar-note"><span class="eyebrow">READING WORKSPACE</span><p>Mỗi đề thi là một bước tiến.<br />Chuẩn bị tốt, học tập vững vàng.</p><span class="mini-leaf" aria-hidden="true">❧</span></div>
+        <div class="tf-profile"><span class="avatar">GV</span><div><strong>Giảng viên TOEICFlow</strong><small>@(HostingEnvironment.IsDevelopment() ? "Không gian phát triển" : "Không gian giảng dạy")</small></div></div>
+    </aside>
+    <div class="tf-shell">
+        <header class="tf-topbar">
+            <div class="topbar-title"><button class="icon-button mobile-menu" type="button" aria-label="Mở điều hướng" aria-controls="lecturer-navigation" aria-expanded="false">☰</button><span>TOEIC Reading <span class="breadcrumb-separator">/</span> <strong>@ViewBag.Title</strong></span></div>
+            <a asp-controller="Exams" asp-action="Import" class="button primary compact"><span aria-hidden="true">＋</span><span>Tải lên đề mới</span></a>
+        </header>
+        <main class="tf-main" id="main-content">
+            @if (TempData["SuccessMessage"] != null) { <div class="notice success" role="status">✓ @TempData["SuccessMessage"]</div> }
+            @if (TempData["ErrorMessage"] != null) { <div class="notice error" role="alert">@TempData["ErrorMessage"]</div> }
+            @RenderBody()
+            <footer class="tf-footer"><span>TOEICFlow · Reading with purpose.</span><span>Không gian giảng viên · Part 5 / 6 / 7</span></footer>
+        </main>
+    </div>
+    <script src="~/js/vendor/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/js/toeicflow.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("scripts", required: false)
+</body>
+</html>

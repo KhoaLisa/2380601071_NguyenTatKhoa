@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  abp_host:
+    image: abp/mvc
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Staging"
+      ConnectionStrings__Default: "${ConnectionStrings__Default:?Set a private SQL Server connection string}"
+      Authentication__JwtBearer__SecurityKey: "${Authentication__JwtBearer__SecurityKey:?Set a private JWT signing key}"
+      TZ: "America/Toronto"
+      Kestrel__Endpoints__Http__Url: "http://+:80"
+    ports:
+      - "44312:80"
+    volumes:
+      - "./Mvc-Logs:/app/App_Data/Logs"
+    restart: always
