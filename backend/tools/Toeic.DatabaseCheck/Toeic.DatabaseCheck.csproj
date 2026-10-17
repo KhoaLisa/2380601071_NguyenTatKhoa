@@ -8,4 +8,7 @@
     <ProjectReference Include="../../src/NguyenTatKhoa_2380601071.Application/NguyenTatKhoa_2380601071.Application.csproj" />
     <ProjectReference Include="../../src/NguyenTatKhoa_2380601071.EntityFrameworkCore/NguyenTatKhoa_2380601071.EntityFrameworkCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="../../test/SourceFixtures/TOEIC_Reading_v07_co_tag.docx" Link="SourceFixtures/TOEIC_Reading_v07_co_tag.docx" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ public static class FullIntegrationChecks
 {
     public static async Task RunAsync(IIocResolver resolver)
     {
-        var sourcePath = Path.Combine(Directory.GetCurrentDirectory(), "docs", "source", "TOEIC_Reading_v07_co_tag.docx");
+        var sourcePath = Path.Combine(AppContext.BaseDirectory, "SourceFixtures", "TOEIC_Reading_v07_co_tag.docx");
         if (!File.Exists(sourcePath)) throw new FileNotFoundException("The supplied Reading v07 Word source is required.", sourcePath);
         var manager = resolver.Resolve<IUnitOfWorkManager>();
         using var scope = manager.Begin(new UnitOfWorkOptions { IsTransactional = true });
@@ -67,6 +67,20 @@ public static class FullIntegrationChecks
         Require(statistics.CompletedAttemptCount == 1, "lecturer statistics use the completed attempt");
         try { await management.UpdateAsync(new UpdateExamInput { Id = copied.Id, Title = "Must not save", DurationMinutes = 75 }); throw new InvalidOperationException("Used exam was editable."); }
         catch (UserFriendlyException) { Console.WriteLine("PASS: used/published exam cannot be edited"); }
+
+        var removedExam = await context.Exams.SingleAsync(x => x.Id == copied.Id);
+        removedExam.IsDeleted = true;
+        removedExam.DeletionTime = DateTime.UtcNow;
+        await context.SaveChangesAsync();
+        Require(!(await student.GetMyAttemptsAsync()).Items.Any(x => x.AttemptId == started.AttemptId),
+            "soft-deleted exams are omitted from learner history without failing the request");
+        Require(await context.ExamAttempts.AnyAsync(x => x.Id == started.AttemptId && x.SubmittedAtUtc == result.SubmittedAtUtc),
+            "removing an exam preserves its stored attempt and submitted result");
+        removedExam.IsDeleted = false;
+        removedExam.DeletionTime = null;
+        await context.SaveChangesAsync();
+        Require((await student.GetMyAttemptsAsync()).Items.Any(x => x.AttemptId == started.AttemptId),
+            "restoring an exam restores its learner history entry");
         Console.WriteLine("PASS: full Word v07 import → preview → edit → publish → answer → submit → statistics; all scenario data will roll back.");
     }
 

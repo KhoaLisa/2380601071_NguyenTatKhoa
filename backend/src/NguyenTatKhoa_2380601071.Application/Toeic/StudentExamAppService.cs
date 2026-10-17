@@ -69,7 +69,10 @@ public class StudentExamAppService : NguyenTatKhoa_2380601071AppServiceBase, ISt
     {
         EnsureHostScope();
         var userId = AbpSession.GetUserId();
-        var ids = await _attemptRepository.GetAll().AsNoTracking().Where(x => x.UserId == userId)
+        // A removed exam must not make the entire history request fail when its
+        // required Exam navigation is filtered out by ABP's soft-delete filter.
+        var ids = await _attemptRepository.GetAll().AsNoTracking()
+            .Where(x => x.UserId == userId && !x.Exam.IsDeleted)
             .OrderByDescending(x => x.StartedAtUtc).Select(x => x.Id).Take(100).ToListAsync();
         var results = new List<MyExamAttemptDto>();
         foreach (var id in ids)
